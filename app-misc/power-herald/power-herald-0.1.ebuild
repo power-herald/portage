@@ -17,7 +17,8 @@ S="${WORKDIR}/${PN}-${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE=""
+IUSE="+mariadb sqlite"
+REQUIRED_USE="^^ ( mariadb sqlite )"
 
 RDEPEND="
 	acct-group/power-herald
@@ -28,14 +29,21 @@ RDEPEND="
 		dev-python/requests[${PYTHON_USEDEP}]
 		dev-python/ping3[${PYTHON_USEDEP}]
 		dev-python/sqlalchemy[${PYTHON_USEDEP}]
-		dev-python/pymysql[${PYTHON_USEDEP}]
 		dev-python/pyyaml[${PYTHON_USEDEP}]
 		dev-python/python-dotenv[${PYTHON_USEDEP}]
 	')
+	mariadb? ( $(python_gen_cond_dep 'dev-python/pymysql[${PYTHON_USEDEP}]') )
 "
 
 src_install() {
 	distutils-r1_src_install
+
+	if use sqlite; then
+		sed -i \
+			-e '/^  driver:/c\  driver: "sqlite"' \
+			-e '/^  database:/c\  database: "/var/lib/power-herald/power_herald.db"' \
+			config.yaml || die "failed to configure SQLite database path"
+	fi
 
 	insinto /etc/power-herald
 	insopts -m0640 -o power-herald -g power-herald
@@ -48,6 +56,9 @@ src_install() {
 
 	diropts -m0750 -o power-herald -g power-herald
 	keepdir /var/log/power-herald
+	if use sqlite; then
+		keepdir /var/lib/power-herald
+	fi
 
 	dodoc README.md API.md DEPLOYMENT.md OPENRC_SETUP.md
 }

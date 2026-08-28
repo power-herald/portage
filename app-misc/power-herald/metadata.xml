@@ -9,8 +9,12 @@
 		Power Herald is a Telegram bot that notifies subscribers about power
 		outages, generator maintenance windows, and scheduled outages. It
 		supports passive and active device probing, per-chat subscriptions,
-		and MariaDB/MySQL-backed persistence.
+		and MariaDB/MySQL or SQLite-backed persistence.
 	</longdescription>
+	<use>
+		<flag name="mariadb">Use MariaDB/MySQL persistence.</flag>
+		<flag name="sqlite">Use a local SQLite database file.</flag>
+	</use>
 	<upstream>
 		<remote-id type="github">idokka/power-herald</remote-id>
 	</upstream>
