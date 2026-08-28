@@ -10,8 +10,8 @@ DISTUTILS_SINGLE_IMPL=1
 inherit distutils-r1 systemd
 
 DESCRIPTION="Telegram Bot server for power source outage notifications"
-HOMEPAGE="https://github.com/idokka/power-herald"
-SRC_URI="https://github.com/idokka/power-herald/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+HOMEPAGE="https://github.com/power-herald/power-herald"
+SRC_URI="https://github.com/power-herald/power-herald/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
 S="${WORKDIR}/${PN}-${PV}"
 
 LICENSE="MIT"

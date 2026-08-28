@@ -16,6 +16,6 @@
 		<flag name="sqlite">Use a local SQLite database file.</flag>
 	</use>
 	<upstream>
-		<remote-id type="github">idokka/power-herald</remote-id>
+		<remote-id type="github">power-herald/power-herald</remote-id>
 	</upstream>
 </pkgmetadata>
