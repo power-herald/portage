@@ -1,0 +1,15 @@
+[Unit]
+Description=Power Herald combined Telegram bot daemon
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=power-herald
+Group=power-herald
+Environment=POWER_HERALD_CONFIG=/etc/power-herald/config.yaml
+ExecStart=/usr/bin/ph-server
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

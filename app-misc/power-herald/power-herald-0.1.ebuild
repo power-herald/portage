@@ -7,7 +7,7 @@ DISTUTILS_USE_PEP517=setuptools
 PYTHON_COMPAT=( python3_{11..14} )
 DISTUTILS_SINGLE_IMPL=1
 
-inherit distutils-r1
+inherit distutils-r1 systemd
 
 DESCRIPTION="Telegram Bot server for power source outage notifications"
 HOMEPAGE="https://github.com/idokka/power-herald"
@@ -17,7 +17,7 @@ S="${WORKDIR}/${PN}-${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~x86"
-IUSE="+mariadb sqlite"
+IUSE="+mariadb sqlite systemd"
 REQUIRED_USE="^^ ( mariadb sqlite )"
 
 RDEPEND="
@@ -51,8 +51,12 @@ src_install() {
 	insopts -m0644 -o power-herald -g power-herald
 	doins locale.yaml
 
-	newinitd "${FILESDIR}/power-herald.initd" power-herald
-	newconfd "${FILESDIR}/power-herald.confd" power-herald
+	if use systemd; then
+		systemd_dounit "${FILESDIR}/power-herald.service"
+	else
+		newinitd "${FILESDIR}/power-herald.initd" power-herald
+		newconfd "${FILESDIR}/power-herald.confd" power-herald
+	fi
 
 	diropts -m0750 -o power-herald -g power-herald
 	keepdir /var/log/power-herald
@@ -67,7 +71,12 @@ pkg_postinst() {
 	elog "Edit /etc/power-herald/config.yaml with your bot token, database"
 	elog "credentials and webhook settings before starting the service."
 	elog
-	elog "Then enable and start the daemon with:"
-	elog "  rc-update add power-herald default"
-	elog "  rc-service power-herald start"
+	if use systemd; then
+		elog "Then enable and start the systemd service with:"
+		elog "  systemctl enable --now power-herald.service"
+	else
+		elog "Then enable and start the OpenRC service with:"
+		elog "  rc-update add power-herald default"
+		elog "  rc-service power-herald start"
+	fi
 }
