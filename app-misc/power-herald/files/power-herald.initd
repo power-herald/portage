@@ -1,0 +1,33 @@
+#!/sbin/openrc-run
+# Copyright 2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+description="Power Herald combined Telegram bot daemon"
+
+: "${PH_USER:=power-herald}"
+: "${PH_GROUP:=power-herald}"
+: "${PH_LOG_DIR:=/var/log/power-herald}"
+: "${PH_LOGFILE:=${PH_LOG_DIR}/server.log}"
+: "${PH_LOGFILE_ERROR:=${PH_LOG_DIR}/server.err}"
+: "${PH_PIDFILE:=/run/power-herald.pid}"
+: "${PH_COMMAND:=/usr/bin/ph-server}"
+: "${PH_CONFIG:=/etc/power-herald/config.yaml}"
+
+command="${PH_COMMAND}"
+command_background="yes"
+command_user="${PH_USER}:${PH_GROUP}"
+pidfile="${PH_PIDFILE}"
+output_log="${PH_LOGFILE}"
+error_log="${PH_LOGFILE_ERROR}"
+
+export POWER_HERALD_CONFIG="${PH_CONFIG}"
+
+depend() {
+	need net
+	use mysql mariadb
+}
+
+start_pre() {
+	checkpath -d -m 0750 -o "${PH_USER}:${PH_GROUP}" "$(dirname "${PH_LOGFILE}")"
+	checkpath -f -m 0640 -o "${PH_USER}:${PH_GROUP}" "${PH_CONFIG}"
+}

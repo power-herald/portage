@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>idokka@gmail.com</email>
+		<name>idokka</name>
+	</maintainer>
+	<longdescription>
+		Power Herald is a Telegram bot that notifies subscribers about power
+		outages, generator maintenance windows, and scheduled outages. It
+		supports passive and active device probing, per-chat subscriptions,
+		and MariaDB/MySQL-backed persistence.
+	</longdescription>
+	<upstream>
+		<remote-id type="github">idokka/power-herald</remote-id>
+	</upstream>
+</pkgmetadata>

@@ -1,0 +1,21 @@
+# /etc/conf.d/power-herald: config file for /etc/init.d/power-herald
+
+# System user and group the daemon runs as.
+PH_USER="power-herald"
+PH_GROUP="power-herald"
+
+# Directory used for the daemon's log files.
+PH_LOG_DIR="/var/log/power-herald"
+
+# stdout/stderr log files.
+PH_LOGFILE="${PH_LOG_DIR}/server.log"
+PH_LOGFILE_ERROR="${PH_LOG_DIR}/server.err"
+
+# PID file location.
+PH_PIDFILE="/run/power-herald.pid"
+
+# Path to the power-herald server executable.
+PH_COMMAND="/usr/bin/ph-server"
+
+# Path to the configuration file passed to the daemon.
+PH_CONFIG="/etc/power-herald/config.yaml"
