@@ -7,6 +7,8 @@ inherit acct-user
 
 DESCRIPTION="User for the power-herald Telegram bot daemon"
 
+KEYWORDS="alpha amd64 arm arm64 hppa loong mips ppc ppc64 riscv s390 sparc x86"
+
 ACCT_USER_ID=-1
 ACCT_USER_GROUPS=( power-herald )
 ACCT_USER_HOME="/var/lib/power-herald"
