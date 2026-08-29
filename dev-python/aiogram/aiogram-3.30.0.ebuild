@@ -4,9 +4,9 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=hatchling
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{12..14} )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="Modern and fully asynchronous framework for Telegram Bot API"
 HOMEPAGE="
@@ -14,7 +14,6 @@ HOMEPAGE="
 	https://github.com/aiogram/aiogram
 	https://pypi.org/project/aiogram/
 "
-SRC_URI="https://files.pythonhosted.org/packages/source/a/aiogram/aiogram-${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
