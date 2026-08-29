@@ -4,16 +4,15 @@
 EAPI=8
 
 DISTUTILS_USE_PEP517=setuptools
-PYTHON_COMPAT=( python3_{11..14} )
+PYTHON_COMPAT=( python3_{11..15} )
 
-inherit distutils-r1
+inherit distutils-r1 pypi
 
 DESCRIPTION="A pure python3 version of ICMP ping implementation using raw socket"
 HOMEPAGE="
 	https://github.com/kyan001/ping3
 	https://pypi.org/project/ping3/
 "
-SRC_URI="https://files.pythonhosted.org/packages/source/p/ping3/ping3-${PV}.tar.gz"
 
 LICENSE="MIT"
 SLOT="0"
