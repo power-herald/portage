@@ -16,7 +16,7 @@ S="${WORKDIR}/${PN}-${PV}"
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~amd64"
 IUSE="+mariadb sqlite systemd"
 REQUIRED_USE="^^ ( mariadb sqlite )"
 
