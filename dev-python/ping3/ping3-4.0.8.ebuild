@@ -17,3 +17,14 @@ HOMEPAGE="
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+# Tests require raw-socket network access, which is unavailable in the sandbox.
+RESTRICT="test"
+
+src_prepare() {
+	sed -i \
+		-e 's/\r$//' \
+		-e 's/license = {file = "LICENSE"}/license = "MIT"/' \
+		-e '/"License :: OSI Approved :: MIT License",/d' \
+		pyproject.toml || die
+	default
+}
