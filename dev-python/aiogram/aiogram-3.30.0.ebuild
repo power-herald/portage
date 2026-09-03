@@ -18,6 +18,8 @@ HOMEPAGE="
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
+# Requires the un-packaged Telegram Bot API test server and development stack.
+RESTRICT="test"
 
 RDEPEND="
 	$(python_gen_cond_dep '

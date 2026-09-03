@@ -8,6 +8,8 @@ PYTHON_COMPAT=( python3_{12..15} )
 
 inherit distutils-r1 pypi
 
+distutils_enable_tests pytest
+
 DESCRIPTION="Magic filter based on dynamic attribute getter, used by aiogram"
 HOMEPAGE="
 	https://github.com/aiogram/magic-filter
