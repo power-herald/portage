@@ -10,6 +10,9 @@ description="Power Herald combined Telegram bot daemon"
 : "${PH_LOGFILE:=${PH_LOG_DIR}/server.log}"
 : "${PH_LOGFILE_ERROR:=${PH_LOG_DIR}/server.err}"
 : "${PH_PIDFILE:=/run/power-herald.pid}"
+: "${PH_RUNTIME_DIR:=/run/power-herald}"
+: "${PH_READY_FILE:=${PH_RUNTIME_DIR}/ready}"
+: "${PH_READY_TIMEOUT:=60}"
 : "${PH_COMMAND:=/usr/bin/ph-server}"
 : "${PH_CONFIG:=/etc/power-herald/config.yaml}"
 
@@ -21,6 +24,7 @@ output_log="${PH_LOGFILE}"
 error_log="${PH_LOGFILE_ERROR}"
 
 export POWER_HERALD_CONFIG="${PH_CONFIG}"
+export PH_READY_FILE
 
 depend() {
 	need net
@@ -30,4 +34,16 @@ depend() {
 start_pre() {
 	checkpath -d -m 0750 -o "${PH_USER}:${PH_GROUP}" "$(dirname "${PH_LOGFILE}")"
 	checkpath -f -m 0640 -o "${PH_USER}:${PH_GROUP}" "${PH_CONFIG}"
+	checkpath -d -m 0750 -o "${PH_USER}:${PH_GROUP}" "${PH_RUNTIME_DIR}"
+	rm -f "${PH_READY_FILE}"
+}
+
+start_post() {
+	ebegin "Waiting for Power Herald to finish starting"
+	ewaitfile "${PH_READY_TIMEOUT}" "${PH_READY_FILE}"
+	eend $?
+}
+
+stop_post() {
+	rm -f "${PH_READY_FILE}"
 }

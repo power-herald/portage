@@ -14,6 +14,16 @@ PH_LOGFILE_ERROR="${PH_LOG_DIR}/server.err"
 # PID file location.
 PH_PIDFILE="/run/power-herald.pid"
 
+# Directory used for the readiness file that signals rc-service start has
+# finished once the daemon completed its startup sequence.
+PH_RUNTIME_DIR="/run/power-herald"
+
+# Readiness file touched by the daemon once fully started.
+PH_READY_FILE="${PH_RUNTIME_DIR}/ready"
+
+# Seconds to wait for the readiness file before rc-service start gives up.
+PH_READY_TIMEOUT="60"
+
 # Path to the power-herald server executable.
 PH_COMMAND="/usr/bin/ph-server"
 
