@@ -39,7 +39,7 @@ start_pre() {
 }
 
 start_post() {
-	ebegin "Waiting for Power Herald to finish starting"
+	ebegin "Waiting for the daemon to be ready"
 	ewaitfile "${PH_READY_TIMEOUT}" "${PH_READY_FILE}"
 	eend $?
 }
