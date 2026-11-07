@@ -30,6 +30,7 @@ RDEPEND="
 		dev-python/ping3[${PYTHON_USEDEP}]
 		dev-python/sqlalchemy[${PYTHON_USEDEP}]
 		dev-python/pyyaml[${PYTHON_USEDEP}]
+		dev-python/python-dotenv[${PYTHON_USEDEP}]
 	')
 	mariadb? ( $(python_gen_cond_dep 'dev-python/pymysql[${PYTHON_USEDEP}]') )
 "
